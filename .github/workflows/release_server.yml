@@ -1,0 +1,19 @@
+name: Release Server
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "server/**"
+  
+jobs:
+  build-and-push-server:
+    name: Server - Docker Build & Push
+    uses: varbrad/docker-push-gh-action/.github/workflows/docker_workflow.yml@main
+    with:
+      context: ./server
+      tag: varbrad/go-server:latest
+    secrets:
+      username: ${{ secrets.DOCKERHUB_USERNAME }}
+      token: ${{ secrets.DOCKERHUB_TOKEN }}

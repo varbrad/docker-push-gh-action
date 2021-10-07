@@ -1,0 +1,19 @@
+name: Release App
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "app/**"
+  
+jobs:
+  build-and-push-app:
+    name: App - Docker Build & Push
+    uses: varbrad/docker-push-gh-action/.github/workflows/docker_workflow.yml@main
+    with:
+      context: ./app
+      tag: varbrad/go-app:latest
+    secrets:
+      username: ${{ secrets.DOCKERHUB_USERNAME }}
+      token: ${{ secrets.DOCKERHUB_TOKEN }}
